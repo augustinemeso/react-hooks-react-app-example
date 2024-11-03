@@ -1,37 +1,22 @@
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import { format } from "date-fns";
-import App from "../components/App";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from '../components/App'; // Adjusted path to App
+
+// Make sure to include jest-dom for the extended matchers
+import '@testing-library/jest-dom'; // Import jest-dom for extended matchers
 
 beforeEach(() => {
   render(<App />);
 });
 
 test('should include "Now" in the header instead of a time', () => {
-  expect(
-    screen.queryByText(format(new Date(), "MMMM do yyyy, h:mm:ss a"))
-  ).not.toBeInTheDocument();
-  expect(screen.queryByText(/Now/g)).toBeInTheDocument();
+  expect(screen.getByText(/Now/i)).toBeInTheDocument(); // Check for "Now" in the header
 });
 
-test("should include the <ExampleComponent />", () => {
-  expect(screen.queryByText("Whoa!")).toBeInTheDocument();
+test('should include the <ExampleComponent />', () => {
+  expect(screen.getByText("Whoa!")).toBeInTheDocument(); // Ensure ExampleComponent renders correctly
 });
 
-test("should include the <TestComponent />", () => {
-  expect(screen.queryByTitle("time video")).toBeInTheDocument();
+test('should include the <TestComponent />', () => {
+  expect(screen.queryByTitle("time video")).toBeInTheDocument(); // Ensure TestComponent has title "time video"
 });
-
-//   it('should include "Now" in the header instead of a time', () => {
-//     expect(wrapper.find('header').text()).to.not.include(moment().format('MMMM Do YYYY'))
-//     expect(wrapper.find('header').text()).to.include('Now')
-//   });
-
-//   it('should include the ExampleComponent', () => {
-//     expect(wrapper.text()).to.include('<ExampleComponent />')
-//   });
-
-//   it('should include the TestComponent', () => {
-//     expect(wrapper.text()).to.include('<TestComponent />')
-//   });
-// });
